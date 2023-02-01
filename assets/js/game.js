@@ -59,3 +59,7 @@ const getCardValue = (card) => {
 }
 
 console.log(getCardValue(requestCard()));
+
+let scores = document.querySelectorAll('small');
+
+console.log(scores);
