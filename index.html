@@ -4,9 +4,46 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Blackjack</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
     
+    <header class="title">
+        Blackjack-js
+    </header>
+
+    <div class="container mt-4">
+    
+        <div class="row mt-2">
+            <div class="col text-center">
+                <button class="btn btn-danger">New game</button>
+                <button class="btn btn-light">Request card</button>
+                <button class="btn btn-light">Stop game</button>
+            </div>
+        </div>
+    
+        <div class="row container">
+            <div class="col">
+                <h1>Player 1 - <small>0</small></h1>
+                <div id="player-cards">
+                  
+                </div>
+            </div>
+        </div>
+        
+        <div class="row container mt-5">
+            <div class="col">
+                <h1>Computer - <small>0</small></h1>
+                <div id="computer-cards">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/underscore@1.13.6/underscore-umd-min.js"></script>
+    <script src="assets/js/game.js"></script>
 </body>
 </html>
