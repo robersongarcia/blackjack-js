@@ -88,13 +88,16 @@ const computersTurn = ( playerPoints ) => {
 
     } while (computerPoints < playerPoints);
 
-    if(computerPoints > 21){
-        console.warn('player won');
-    }else if( computerPoints === playerPoints){
-        console.warn('its a draw');
-    }else{
-        console.warn('computer won');
-    }
+    setTimeout( () => {
+        if(computerPoints > 21){
+            alert('player won');
+        }else if( computerPoints === playerPoints){
+            alert('its a draw');
+        }else{
+            alert('computer won');
+        }
+    }, 1000);
+
 
 };
 
@@ -114,11 +117,11 @@ btnRequest.addEventListener('click', (e) => {
     playerCards.append(cardTag);
 
     if(playerPoints > 21){
-        console.warn('Sorry, you lose.');
+        console.warn('Sorry, you have more than 21.');
         computersTurn(0);
         btnRequest.disabled = true;
     } else if( playerPoints === 21 ){
-        console.warn('Great, 21!!');
+        alert('Great, 21!!');
         btnRequest.disabled = true;
         computersTurn(21);
     }
@@ -126,5 +129,20 @@ btnRequest.addEventListener('click', (e) => {
 })
 
 btnStop.addEventListener('click', () => {
+    btnRequest.disabled = true;
+    btnStop.disabled = true;
     computersTurn(playerPoints);
+})
+
+btnNew.addEventListener('click', () => {
+    deck = [];
+    createDeck();
+    playerPoints = 0;
+    computerPoints = 0;
+    scores[0].innerText = '0';
+    scores[1].innerText = '0';
+    playerCards.innerHTML = '';
+    computerCards.innerHTML = '';
+    btnStop.disabled = false;
+    btnRequest.disabled = false;
 })
