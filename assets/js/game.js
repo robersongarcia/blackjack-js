@@ -6,12 +6,25 @@
     7S = seven of swords (pica)
 */
 
+//variables
 let deck = [];
+
 let playerDeck = [];
+let playerPoints = 0;
+
 let computerDeck = [];
+let computerPoints = 0;
 
 const typeOfCards = ['C', 'D', 'H', 'S'];
 const specials = ['A','J','Q','K'];
+
+//selectors
+const btnRequest = document.querySelector('#btn-request');
+const btnNew = document.querySelector('#btn-new');
+const btnStop = document.querySelector('#btn-stop');
+const scores = document.querySelectorAll('small');
+const playerCards = document.querySelector('#player-cards');
+const computerCards = document.querySelector('#computer-cards');
 
 //creates a new deck
 const createDeck = () => {
@@ -31,7 +44,7 @@ const createDeck = () => {
     deck = _.shuffle(deck);
 
     return deck;
-}
+};
 
 createDeck();
 
@@ -44,7 +57,7 @@ const requestCard = () => {
     const card = deck.pop();
     return card;
 
-}
+};
 
 //get the value of a card
 const getCardValue = (card) => {
@@ -56,10 +69,48 @@ const getCardValue = (card) => {
         return parseInt(value);
     }
 
-}
+};
 
-console.log(getCardValue(requestCard()));
+const computersTurn = ( playerPoints ) => {
 
-let scores = document.querySelectorAll('small');
+    do {
 
-console.log(scores);
+        const card = requestCard();
+        computerPoints += getCardValue(card);
+    
+        scores[1].innerText = computerPoints;
+    
+        const cardTag = document.createElement('img');
+        cardTag.setAttribute('src', `assets/cards/${card}.png`);
+        cardTag.setAttribute('class', 'card');
+    
+        computerCards.append(cardTag);
+
+    } while (computerPoints < playerPoints);
+
+};
+
+console.log(deck);
+
+//events
+btnRequest.addEventListener('click', (e) => {
+    const card = requestCard();
+    playerPoints += getCardValue(card);
+
+    scores[0].innerText = playerPoints;
+
+    const cardTag = document.createElement('img');
+    cardTag.setAttribute('src', `assets/cards/${card}.png`);
+    cardTag.setAttribute('class', 'card');
+
+    playerCards.append(cardTag);
+
+    if(playerPoints > 21){
+        console.warn('Sorry, you lose.');
+        btnRequest.disabled = true;
+    } else if( playerPoints === 21 ){
+        console.warn('Great, 21!!');
+        btnRequest.disabled = true;
+    }
+
+})
