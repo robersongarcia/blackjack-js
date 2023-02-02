@@ -88,6 +88,14 @@ const computersTurn = ( playerPoints ) => {
 
     } while (computerPoints < playerPoints);
 
+    if(computerPoints > 21){
+        console.warn('player won');
+    }else if( computerPoints === playerPoints){
+        console.warn('its a draw');
+    }else{
+        console.warn('computer won');
+    }
+
 };
 
 console.log(deck);
@@ -107,10 +115,16 @@ btnRequest.addEventListener('click', (e) => {
 
     if(playerPoints > 21){
         console.warn('Sorry, you lose.');
+        computersTurn(0);
         btnRequest.disabled = true;
     } else if( playerPoints === 21 ){
         console.warn('Great, 21!!');
         btnRequest.disabled = true;
+        computersTurn(21);
     }
 
+})
+
+btnStop.addEventListener('click', () => {
+    computersTurn(playerPoints);
 })
