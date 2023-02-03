@@ -6,7 +6,7 @@
     7S = seven of swords (pica)
 */
 
-(() => {
+const module = (() => {
     'use strict'
 
         //variables
@@ -32,6 +32,17 @@
         for( let i = 0; i < numPlayers; i++){
             playersPoints.push(0);
         }
+
+        scores.forEach(element => {
+            element.innerText = 0;
+        });
+
+        divCards.forEach(element => {
+            element.innerHTML = '';
+        })
+
+        btnStop.disabled = false;
+        btnRequest.disabled = false;
     }
 
 
@@ -79,11 +90,14 @@
 
     };
 
+    //insert the points for every player
     const sumPoints = (playerTurn, card) => {
         playersPoints[playerTurn] += getCardValue(card);
         scores[playerTurn].innerText = playersPoints[playerTurn];
     };
 
+
+    //create and asign cards in the document
     const createCards = (card, element) => {
         const cardTag = document.createElement('img');
         cardTag.setAttribute('src', `assets/cards/${card}.png`);
@@ -92,18 +106,7 @@
         element.append(cardTag);
     }
 
-    const computersTurn = ( playerPoints ) => {
-
-        do {
-
-            const card = requestCard();
-
-            sumPoints(playersPoints.length - 1, card);
-        
-            createCards(card, divCards[divCards.length - 1]);
-
-        } while (playersPoints[playersPoints.length-1] < playerPoints);
-
+    const getWinner = (playerPoints) => {
         setTimeout( () => {
             if(playersPoints[playersPoints.length-1] > 21){
                 alert('player won');
@@ -112,8 +115,18 @@
             }else{
                 alert('computer won');
             }
-        }, 1000);
+        }, 500);
+    }
 
+    //computer logic
+    const computersTurn = ( playerPoints ) => {
+        do {
+            const card = requestCard();
+            sumPoints(playersPoints.length - 1, card);
+            createCards(card, divCards[divCards.length - 1]);
+        } while (playersPoints[playersPoints.length-1] < playerPoints);
+
+        getWinner(playerPoints);
 
     };
 
@@ -144,23 +157,14 @@
         computersTurn(playersPoints[0]);
     })
 
-    btnNew.addEventListener('click', () => {
-        
+    btnNew.addEventListener('click', () => {       
         startGame();
-
-        scores.forEach(score => {
-            score.innerText = 0;
-        });
-
-        divCards.forEach(div => {
-            div.innerHTML = '';
-        })
-
-        btnStop.disabled = false;
-        btnRequest.disabled = false;
     })
 
-    startGame();
+    return {
+        newGame: startGame
+    };
+
 })();
 
 
