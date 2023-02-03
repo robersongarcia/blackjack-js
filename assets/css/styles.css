@@ -20,7 +20,7 @@ html, body{
     margin-left: -75px;
 }
 
-#player-cards, #computer-cards{
+#player-cards, #computer-cards, .div-cards{
     display: flex;
     height: 240px;
 }
